@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -euo pipefail
 
 # Project details
 pkg="yourorg.net/coolproject"
@@ -9,16 +9,19 @@ name="coolproject"
 
 # Set up gopath.  Autodetect go install if necessary.
 cd "$( dirname "${BASH_SOURCE[0]}" )"
-[ -z "$GOROOT" ] && GOROOT="$(dirname "$(which go)")/../"
-export GOROOT
+export GOROOT=${GOROOT:-"$(dirname "$(which go)")/../"}
 export GOPATH="$PWD"/.gopath/
 
+# subcommand arg?
+SUBCOMMAND=${1:-}
+
 # subsection arg?
-[ -z "$2" ] && SUBSECTION="./..." || SUBSECTION="./$2"
+SUBSECTION=${2:-"..."}
+SUBSECTION="./$SUBSECTION"
 
 
 
-if [ -z "$1" ] ; then
+if [ -z "$SUBCOMMAND" ] ; then
 	(
 		go fmt "$SUBSECTION"
 		go install "$pkg" && {
@@ -35,7 +38,7 @@ if [ -z "$1" ] ; then
 		}
 	)
 else
-	case "$1" in
+	case "$SUBCOMMAND" in
 	-)
 		# passthrough for other commands
 		shift
