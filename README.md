@@ -11,3 +11,10 @@ This causes your package import path to be the same when you're using self-conta
 Add git submodules in a similar pattern under `./.gopath/src/` to get a self contained, deterministic project build environment with no additional fuss.
 
 
+### is this recommended for use?
+
+God no.
+
+Neither is `go get`, though.
+
+
