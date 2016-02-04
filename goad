@@ -55,6 +55,9 @@ else
 		# it's your responsibility to do this the first time
 		# (we don't do it at the front of every build because it will move submodules if you already have them, and that might not be what you want as you're plowing along)
 		git submodule update --init
+		# also make sure the self-symlink exists.  should be committed anyway (but then, this is also useful for project-first-steps.)
+		mkdir -p "$(dirname ".gopath/src/$pkg")"
+		ln -snf "$(echo "${pkg//[^\/]}/" | sed s#/#../#g)"../ ".gopath/src/$pkg"
 		;;
 	test)
 		set +e ; shift ; shift ; set -e
