@@ -8,6 +8,11 @@ cmd="$pkg/cmd/$name"    # if you have a main.main not at the repo root, set this
 
 
 
+### other config scripts?  invoke here.
+LDFLAGS=""
+
+
+
 # Set up gopath -- relative to this dir, so we work in isolation.
 cd "$( dirname "${BASH_SOURCE[0]}" )"
 export GOPATH="$PWD"/.gopath/
@@ -24,7 +29,7 @@ SUBSECTION="./$SUBSECTION"
 if [ -z "$SUBCOMMAND" ] ; then
 	(
 		go fmt "$SUBSECTION"
-		go install "$cmd" && {
+		go install -ldflags "$LDFLAGS" "$cmd" && {
 			echo -e "\E[1;32minstall successful.\E[0;m\n"
 		} || {
 			echo -e "\E[1;41minstall failed!\E[0;m"
@@ -70,7 +75,7 @@ else
 		}
 		;;
 	install)
-		go install "$cmd"
+		go install -ldflags "$LDFLAGS" "$cmd"
 		;;
 	fmt)
 		go fmt "$SUBSECTION"
