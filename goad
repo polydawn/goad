@@ -2,8 +2,9 @@
 set -euo pipefail
 
 # Project details
-pkg="yourorg.net/coolproject"
 name="coolproject"
+pkg="yourorg.net/$name" # everything under here will be tested
+cmd="$pkg/cmd/$name"    # if you have a main.main not at the repo root, set this
 
 
 
@@ -23,7 +24,7 @@ SUBSECTION="./$SUBSECTION"
 if [ -z "$SUBCOMMAND" ] ; then
 	(
 		go fmt "$SUBSECTION"
-		go install "$pkg" && {
+		go install "$cmd" && {
 			echo -e "\E[1;32minstall successful.\E[0;m\n"
 		} || {
 			echo -e "\E[1;41minstall failed!\E[0;m"
@@ -66,7 +67,7 @@ else
 		}
 		;;
 	install)
-		go install "$pkg"
+		go install "$cmd"
 		;;
 	fmt)
 		go fmt "$SUBSECTION"
