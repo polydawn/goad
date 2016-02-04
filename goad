@@ -7,9 +7,8 @@ name="coolproject"
 
 
 
-# Set up gopath.  Autodetect go install if necessary.
+# Set up gopath -- relative to this dir, so we work in isolation.
 cd "$( dirname "${BASH_SOURCE[0]}" )"
-export GOROOT=${GOROOT:-"$(dirname "$(which go)")/../"}
 export GOPATH="$PWD"/.gopath/
 
 # subcommand arg?
