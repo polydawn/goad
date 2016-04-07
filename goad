@@ -1,21 +1,27 @@
 #!/bin/bash
 set -euo pipefail
 
-# Project details
+### Project details
 name="coolproject"
 pkg="yourorg.net/$name" # everything under here will be tested
 cmd="$pkg/cmd/$name"    # if you have a main.main not at the repo root, set this
 
 
 
+### Normalize path -- all work should be relative to this script's location.
+## Set up gopath -- also relative to this dir, so we work in isolation.
+cd "$( dirname "${BASH_SOURCE[0]}" )"
+export GOPATH="$PWD/.gopath/"
+
+
+
 ### other config scripts?  invoke here.
+## pass pointer to project root dir down, for tests (tests run in varying CWDs, so need this hint)
+export PROJ="$PWD"
+## use LDFLAGS to inject vars at compile time.
 LDFLAGS=""
 
 
-
-# Set up gopath -- relative to this dir, so we work in isolation.
-cd "$( dirname "${BASH_SOURCE[0]}" )"
-export GOPATH="$PWD"/.gopath/
 
 # subcommand arg?
 SUBCOMMAND=${1:-}
@@ -23,8 +29,6 @@ SUBCOMMAND=${1:-}
 # subsection arg?
 SUBSECTION=${2:-"..."}
 SUBSECTION="./$SUBSECTION"
-
-
 
 if [ -z "$SUBCOMMAND" ] ; then
 	(
