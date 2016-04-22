@@ -12,6 +12,7 @@ cmd="$pkg/cmd/$name"    # if you have a main.main not at the repo root, set this
 ## Set up gopath -- also relative to this dir, so we work in isolation.
 cd "$( dirname "${BASH_SOURCE[0]}" )"
 export GOPATH="$PWD/.gopath/"
+export GOBIN="$PWD/bin/"
 
 
 
