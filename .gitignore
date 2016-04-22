@@ -1,0 +1,4 @@
+## ignore go build outputs
+/.gopath/bin/
+/.gopath/pkg/
+/.gopath/tmp/
