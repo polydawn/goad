@@ -102,9 +102,10 @@ else
 		go fmt "$SUBSECTION"
 		;;
 	doc)
+		set +e ; shift ; set -e # munch $subsection from passing on in "$@"
 		for package in $(go list "$SUBSECTION" | sed "s#^_${PWD}#${pkg}#"); do
 			echo -e "==== $package ====\n"
-			godoc "$package"
+			godoc "$@" "$package"
 			echo -e "\n\n\n"
 		done
 		;;
