@@ -130,7 +130,7 @@ else
 		rm -f "$coverFile"
 		;;
 	clean)
-		rm -rf "$GOPATH/bin" "$GOPATH/pkg" "$GOPATH/tmp"
+		rm -rf "$GOBIN" "$GOPATH/pkg" "$GOPATH/tmp"
 		;;
 	*)
 		echo "Usage: $0 {init|test|install|bench|fmt|doc|cover|clean}" 1>&2;
